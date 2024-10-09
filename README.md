@@ -807,11 +807,22 @@ Accuracy: 0.72
 ![Traffic Crash Analysis](./Images/figure_70.png)
 Feature analysis:
 
-| Feature | Importance | |-------------------------------------------|--------------| | 63 cat__first_crash_type_Rear End | 382.982635 | | 38 cat__driver_action_Improper Manouver | 153.823105 | | 56 cat__first_crash_type_Angle | 106.553223 | | 35 cat__driver_action_Disregarding Controls/Signs | 103.140503 | | 36 cat__driver_action_Distance | 84.111923 | | 37 cat__driver_action_Distraction | 55.041073 | | 23 cat__first_contact_point_Rear | 52.211895 | | 44 cat__traffic_control_device_No Controls | 36.809013 | | 68 cat__first_crash_type_Sideswipe Same | 36.703949 | | 40 cat__driver_action_Other | 35.202759 |
+| Feature | Importance | 
+|-------------------------------------------|--------------| 
+| 63 cat__first_crash_type_Rear End | 382.982635 | 
+| 38 cat__driver_action_Improper Manouver | 153.823105 | 
+| 56 cat__first_crash_type_Angle | 106.553223 | 
+| 35 cat__driver_action_Disregarding Controls/Signs | 103.140503 | 
+| 36 cat__driver_action_Distance | 84.111923 | 
+| 37 cat__driver_action_Distraction | 55.041073 | 
+| 23 cat__first_contact_point_Rear | 52.211895 | 
+| 44 cat__traffic_control_device_No Controls | 36.809013 | 
+| 68 cat__first_crash_type_Sideswipe Same | 36.703949 | 
+| 40 cat__driver_action_Other | 35.202759 |
 
 Deep Neural Network model gave similar results on holdout set:
 Accuracy: 0.69
-![Traffic Crash Analysis](./Images/figure_71.png)
+![Traffic Crash Analysis](./Images/figure_72.png)
 ## 10. Conclusion.
 ...
 
