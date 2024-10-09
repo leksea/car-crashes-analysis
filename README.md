@@ -8,7 +8,7 @@
 - [4. Datasets Download Links and Notebook Requirements](#4-datasets-download-links)
 - [5. Datasets EDA and Cleaning](#5-datasets-eda-and-cleaning)
   - [5.1. Traffic Crashes: `Crashes` Overview, EDA, Cleaning](#51-traffic-crashes-crashes-overview-eda-cleaning)
-  - [5.2. Traffic Crashes: `Drivers` Overview, EDA, Cleaning](#52-traffic-crashes-drivers-overview-eda-cleaning)
+  - [5.2. Traffic Crashes: `People` Overview, EDA, Cleaning](#52-traffic-crashes-people-overview-eda-cleaning)
   - [5.3. Traffic Crashes: `Vehicles` Overview, EDA, Cleaning](#53-traffic-crashes-vehicles-overview-eda-cleaning)
   - [5.4. Traffic Crashes: Merging `Drivers`, `Crashes`, `Vehicles`](#54-traffic-crashes-merging-drivers-crashes-vehicles)
 - [6. Merged Data EDA](#6-data-eda)
@@ -21,6 +21,7 @@
 ## 1. Repository Structure.
 
 ### Structure:
+
 ├── Data
 ├── Images
 │   ├── figure_xx.png
@@ -296,21 +297,37 @@ Columns, percent NaNs in columns:
 
 #### Data EDA:
 
--   The City of Chicago crashes dataset contains information about medium-speed (30-35mph) crashes registered in urban environment.
--   Most crashes happen in clear weather during daylight or on a lit street.
--   Most streets are well-maintained and have no road defects.
--   Most traffic control devices are not present.
--   Most crashes have no injuries and have excessive damages (over 1500USD).
--   Most crashes happen on undivided roads, followed by mdeian-divided roads, various types of intersections, and parking garages.
--   Most of the first crashes are either hitting parked vehicle or rear-ending.
--   Crash number patterns by hour follow commute hours, with an uptic of crashes between 5 and 7 pm.
--   Crash number patterns by hour display steady amount of serious injuries between 11 am and 11 pm.
--   Crash number patterns by day display Sunday as the day with the least crashes and Friday the day with the most crashes.
--   Crash number patterns by month mostly steady with slight uptick in May, June, and October.
--   Most of crashes are reported within 1 hour, the second most reported is over 8 hours. Crashes reported after 8 hours have an increased number of  `Unable to determine`  cause.
+- The City of Chicago crashes dataset contains information about medium-speed (30-35mph) crashes registered in urban environment.
+<img src="./Images/figure_5.png" alt="Traffic Crash Analysis" width="400"/>
 
+- Most crashes happen in clear weather during daylight or on a lit street.
+<img src="./Images/figure_9.png" alt="Traffic Crash Analysis" width="400"/>
+<img src="./Images/figure_29.png" alt="Traffic Crash Analysis" width="400"/>
+- Most streets are well-maintained and have no road defects.
+- Most traffic control devices are not present.
+<img src="./Images/figure_38.png" alt="Traffic Crash Analysis" width="400"/> 
+- Most crashes have no injuries and have excessive damages (over 1500USD).
+<img src="./Images/figure_1.png" alt="Traffic Crash Analysis" width="400"/>
+<img src="./Images/figure_3.png" alt="Traffic Crash Analysis" width="400"/>
+- Most crashes happen on undivided roads, followed by mdeian-divided roads, various types of intersections, and parking garages.
+<img src="./Images/figure_33.png" alt="Traffic Crash Analysis" width="400"/>
+- Most of the first crashes are either hitting parked vehicle or rear-ending.
+<img src="./Images/figure_12.png" alt="Traffic Crash Analysis" width="400"/>
+- Crash number patterns by hour follow commute hours, with an uptic of crashes between 5 and 7 pm.
+<img src="./Images/figure_16.png" alt="Traffic Crash Analysis" width="400"/>  
+- Crash number patterns by hour display steady amount of serious injuries between 11 am and 11 pm.
+<img src="./Images/figure_26.png" alt="Traffic Crash Analysis" width="400"/>  
+- Crash number patterns by day display Sunday as the day with the least crashes and Friday the day with the most crashes.
+<img src="./Images/figure_18.png" alt="Traffic Crash Analysis" width="400"/>  
+  
+- Crash number patterns by month mostly steady with slight uptick in May, June, and October.
+<img src="./Images/figure_20.png" alt="Traffic Crash Analysis" width="400"/>  
+ 
+- Most of crashes are reported within 1 hour, the second most reported is over 8 hours. Crashes reported after 8 hours have an increased number of  `Unable to determine`  cause.
+<img src="./Images/figure_43.png" alt="Traffic Crash Analysis" width="400"/>  
+<img src="./Images/figure_44.png" alt="Traffic Crash Analysis" width="400"/>  
 #### Data transformation:
- -   We started with the  `df_crashes`  48 columns and 854910 data entries;
+-   We started with the  `df_crashes`  48 columns and 854910 data entries;
 -   Over 44% of  `df_crashes[PRIM_CONTRIBUTORY_CAUSE]`  was either undetermined (333195) or n/a (45295).
 -   Based on the data ranges in binary columns, we cleaned the values and replaced  `nan`s with 0.
 -   For other categorical columns, we applied generalization, merging together similar categories.
@@ -756,9 +773,11 @@ Our goal is to first merge people with vehices on `vehicle_id`, then merge it wi
 * We then concatenated the smaller dataset with the larger. 
 ## 6. Merged Data EDA.
 -   Men are 2.5x more often impaired than women, and women are 1.5x times more often distressed.
+<img src="./Images/figure_64.png" alt="Traffic Crash Analysis" width="500"/>  
 -   Men have 2x more fatal injuries.
--   Almost a million of crashes (out of 1.5 million) is a two-vehicle crash, followed by a single-vehicle crash (under 250K). We also get a fair amount of crashes having 10+ cars, all the way up to 146(?).
--   The most  `Unknown`  vehicles come from a single-vehicle crash,
+-   Almost a million of crashes (out of 1.5 million) is a two-vehicle crash, followed by a single-vehicle crash (under 250K). We also get a fair amount of crashes having 10+ cars, all the way up to 10.
+<img src="./Images/figure_60.png" alt="Traffic Crash Analysis" width="500"/>
+-   The most  `Unknown`  vehicles come from a single-vehicle crash.
 -   Top 3 most popular defects among top 20 car makes are : brakes, steering, tires.
 -   Driver's actions mostly Unknown for each primary contributory cause.
 -   When primary cause is unable to determine, the driver's actions are None or Unknown.
