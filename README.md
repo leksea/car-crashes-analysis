@@ -5,13 +5,13 @@
 - [1. Repository Structure](#1-repository-structure)
 - [2. Business Problem Overview](#2-business-problem-overview)
 - [3. Proposed Solution](#3-proposed-solution)
-- [4. Datasets Download Links and Notebook Requirements](#4-datasets-download-links)
+- [4. Datasets Download Links and Notebook Requirements](#4-datasets-download-links-and-notebook-requirements)
 - [5. Datasets EDA and Cleaning](#5-datasets-eda-and-cleaning)
   - [5.1. Traffic Crashes: `Crashes` Overview, EDA, Cleaning](#51-traffic-crashes-crashes-overview-eda-cleaning)
   - [5.2. Traffic Crashes: `People` Overview, EDA, Cleaning](#52-traffic-crashes-people-overview-eda-cleaning)
   - [5.3. Traffic Crashes: `Vehicles` Overview, EDA, Cleaning](#53-traffic-crashes-vehicles-overview-eda-cleaning)
   - [5.4. Traffic Crashes: Merging `Drivers`, `Crashes`, `Vehicles`](#54-traffic-crashes-merging-drivers-crashes-vehicles)
-- [6. Merged Data EDA](#6-data-eda)
+- [6. Merged Data EDA](#6-merged-data-eda)
 - [7. Data Transformation For Classification](#7-data-transformation-for-classification)
 - [8. Modelling](#8-modelling)
 - [9. Results](#9-results)
@@ -20,16 +20,14 @@
 
 ## 1. Repository Structure.
 
-### Structure:
-
-├── Data
-├── Images
-│   ├── figure_xx.png
-├── Notebook.ipynb
-├── README.md
-└── Slides_ChiCrashes.pdf
-
-### Description:
+### Structure.
+    ├── Data
+    ├── Images
+    │   ├── figure_xx.png
+    ├── Notebook.ipynb
+    ├── README.md
+    └── Slides_ChiCrashes.pdf
+### Description.
 
 -   **`Data/`**: This directory contains all the datasets used for the project, including raw and processed data files.  The downloaded datasets should be placed in this directory.
 -   **`Images/`**: This folder holds images used for analysis, documentation, or presentations, such as:
@@ -59,7 +57,6 @@ Build a model that can predict the primary contributory cause of a car accident,
 * Strongly advising to check the version compatibility of Python  and Tensorflow. The notebook was compiled with 3.8 Python and 2.14 tensorflow.
 * Execution time: at least 1 hour for data loading, cleaning, running ML models, parameter search. 
 ## 5. Datasets EDA and Cleaning
-We'll define plotting function 
 ### 5.1. Traffic Crashes: `Crashes` Overview, EDA, Cleaning
 Viewing top 5 entries.
 ```python
@@ -68,19 +65,6 @@ df_crashes.head()
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -297,36 +281,61 @@ Columns, percent NaNs in columns:
 
 #### Data EDA:
 
-- The City of Chicago crashes dataset contains information about medium-speed (30-35mph) crashes registered in urban environment.
-<img src="./Images/figure_5.png" alt="Traffic Crash Analysis" width="400"/>
+* The City of Chicago crashes dataset contains information about medium-speed (30-35mph) crashes registered in urban environments.
 
-- Most crashes happen in clear weather during daylight or on a lit street.
-<img src="./Images/figure_9.png" alt="Traffic Crash Analysis" width="400"/>
-<img src="./Images/figure_29.png" alt="Traffic Crash Analysis" width="400"/>
-- Most streets are well-maintained and have no road defects.
-- Most traffic control devices are not present.
-<img src="./Images/figure_38.png" alt="Traffic Crash Analysis" width="400"/> 
-- Most crashes have no injuries and have excessive damages (over 1500USD).
-<img src="./Images/figure_1.png" alt="Traffic Crash Analysis" width="400"/>
-<img src="./Images/figure_3.png" alt="Traffic Crash Analysis" width="400"/>
-- Most crashes happen on undivided roads, followed by mdeian-divided roads, various types of intersections, and parking garages.
-<img src="./Images/figure_33.png" alt="Traffic Crash Analysis" width="400"/>
-- Most of the first crashes are either hitting parked vehicle or rear-ending.
-<img src="./Images/figure_12.png" alt="Traffic Crash Analysis" width="400"/>
-- Crash number patterns by hour follow commute hours, with an uptic of crashes between 5 and 7 pm.
-<img src="./Images/figure_16.png" alt="Traffic Crash Analysis" width="400"/>  
-- Crash number patterns by hour display steady amount of serious injuries between 11 am and 11 pm.
-<img src="./Images/figure_26.png" alt="Traffic Crash Analysis" width="400"/>  
-- Crash number patterns by day display Sunday as the day with the least crashes and Friday the day with the most crashes.
-<img src="./Images/figure_18.png" alt="Traffic Crash Analysis" width="400"/>  
+  <img src="./Images/figure_5.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Most crashes happen in clear weather during daylight or on a lit street.
+
+  <img src="./Images/figure_9.png" alt="Traffic Crash Analysis" width="400"/>
   
-- Crash number patterns by month mostly steady with slight uptick in May, June, and October.
-<img src="./Images/figure_20.png" alt="Traffic Crash Analysis" width="400"/>  
- 
-- Most of crashes are reported within 1 hour, the second most reported is over 8 hours. Crashes reported after 8 hours have an increased number of  `Unable to determine`  cause.
-<img src="./Images/figure_43.png" alt="Traffic Crash Analysis" width="400"/>  
-<img src="./Images/figure_44.png" alt="Traffic Crash Analysis" width="400"/>  
+  <img src="./Images/figure_29.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Most streets are well-maintained and have no road defects.
+
+* Most traffic control devices are not present.
+
+  <img src="./Images/figure_38.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Most crashes have no injuries and have excessive damages (over 1500USD).
+
+  <img src="./Images/figure_1.png" alt="Traffic Crash Analysis" width="400"/>
+  
+  <img src="./Images/figure_3.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Most crashes happen on undivided roads, followed by median-divided roads, various types of intersections, and parking garages.
+
+  <img src="./Images/figure_33.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Most of the first crashes are either hitting parked vehicles or rear-ending.
+
+  <img src="./Images/figure_12.png" alt="Traffic Crash Analysis" width="400"/>
+
+* Crash number patterns by hour follow commute hours, with an uptick of crashes between 5 and 7 pm.
+
+  <img src="./Images/figure_16.png" alt="Traffic Crash Analysis" width="400"/>  
+
+* Crash number patterns by hour display a steady number of serious injuries between 11 am and 11 pm.
+
+  <img src="./Images/figure_26.png" alt="Traffic Crash Analysis" width="400"/>  
+
+* Crash number patterns by day display Sunday as the day with the least crashes and Friday the day with the most crashes.
+
+  <img src="./Images/figure_18.png" alt="Traffic Crash Analysis" width="400"/>  
+
+* Crash number patterns by month are mostly steady with a slight uptick in May, June, and October.
+
+  <img src="./Images/figure_20.png" alt="Traffic Crash Analysis" width="400"/>  
+
+* Most crashes are reported within 1 hour, with the second most reported being over 8 hours. Crashes reported after 8 hours have an increased number of `Unable to determine` causes.
+
+  <img src="./Images/figure_43.png" alt="Traffic Crash Analysis" width="400"/>
+  
+  <img src="./Images/figure_44.png" alt="Traffic Crash Analysis" width="400"/>  
+
+
 #### Data transformation:
+
 -   We started with the  `df_crashes`  48 columns and 854910 data entries;
 -   Over 44% of  `df_crashes[PRIM_CONTRIBUTORY_CAUSE]`  was either undetermined (333195) or n/a (45295).
 -   Based on the data ranges in binary columns, we cleaned the values and replaced  `nan`s with 0.
@@ -350,19 +359,6 @@ Viewing top 5 entries.
 df_people.head()
 ```
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -564,26 +560,13 @@ df_people.head()
 * We dropped all passenger entries.
 * We only cleaned `age`, we'll apply categorization once we merge it with other datasets.
 ### 5.3. Traffic Crashes: `Vehicles` Overview, EDA, Cleaning
-Viewing top 5 elemets, listing columns, listing unique values in categorical columns.
+Viewing top 5 elements, listing columns, listing unique values in categorical columns.
 
 
 ```python
 df_vehicles.head()
 ```
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -771,21 +754,34 @@ Our goal is to first merge people with vehices on `vehicle_id`, then merge it wi
 * Big dataset: we extracted a subset of  `df_vehicles_clean`  where  `vehicle_id`  is not zero. For the non-zero `vehicle_id` set, we added people's data based on `vehicle_id`. We then merged it with `df_crashes`  based on  `crash_id`.
 * Small dataset: we extracted a subset of `df_vehicle_clean` where `df_vehicle_clean['unit_type'].isin(['Pedestrian', 'Cyclist']`. We extracted a subset of `df_people_clean` with  `vehicle_id =0`.  We merged two pedestrian/cyclist datasets based on  `crash_id`.
 * We then concatenated the smaller dataset with the larger. 
+
 ## 6. Merged Data EDA.
--   Men are 2.5x more often impaired than women, and women are 1.5x times more often distressed.
+- Men are 2.5x more often impaired than women, and women are 1.5x times more often distressed.
+
 <img src="./Images/figure_64.png" alt="Traffic Crash Analysis" width="500"/>  
--   Men have 2x more fatal injuries.
--   Almost a million of crashes (out of 1.5 million) is a two-vehicle crash, followed by a single-vehicle crash (under 250K). We also get a fair amount of crashes having 10+ cars, all the way up to 10.
+
+- Men have 2x more fatal injuries.
+
+- Almost a million of crashes (out of 1.5 million) is a two-vehicle crash, followed by a single-vehicle crash (under 250K). We also get a fair amount of crashes having 10+ cars, all the way up to 10.
+
 <img src="./Images/figure_60.png" alt="Traffic Crash Analysis" width="500"/>
--   The most  `Unknown`  vehicles come from a single-vehicle crash.
--   Top 3 most popular defects among top 20 car makes are : brakes, steering, tires.
+
+- The most  `Unknown`  vehicles come from a single-vehicle crash.
+
+-   Top 3 most popular defects among top 20 car makes are: brakes, steering, tires.
+
 -   Driver's actions mostly Unknown for each primary contributory cause.
+
 -   When primary cause is unable to determine, the driver's actions are None or Unknown.
--   In some cases, driver's actions correlate strongly with teh crash cause: Disregarding Signs in Failure to Yield, Improper Manouver in Impreoper Driving, etc..
+
+-   In some cases, driver's actions correlate strongly with the crash cause: Disregarding Signs in Failure to Yield, Improper Manouver in Impreoper Driving, etc..
+
 -   The most popular car make among all age categories is Chevrolet (except for Male Adults, Toyota takes the win). Toyota is mostly 2nd most popular make, third is Nissan/Ford. Honda makes an appearance as a popular teenage car.
+
 #### Data transformation:
 We dropped all rows with where the crash was a single car and the car make is  `Unknown`. We dropped miscategorized driver age categories, like infant, toddler, etc..
-## 7. Data Transformation For Classification.
+
+## 7. Data Transformation For Classification
 -   We saved the  `df_crashes_analysis`  to the local data folder (~1500000 rows, 38 columns).
 -   We limited the number of makes to the top 20 (`df_crashes_ml_top_20`) and saved it as a smaller (~1200000 rows x 36 columns) subset.
 -   We removed all large datasets from the memory, leaving the  `df_crashes_ml_top_20`.
