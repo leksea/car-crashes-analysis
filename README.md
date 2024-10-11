@@ -839,6 +839,20 @@ Deep Neural Network model gave similar results on holdout set:
 Accuracy: 0.69
 ![Traffic Crash Analysis](./Images/figure_72.png)
 ## 10. Conclusion.
-...
+* We have tested the following ML models: Extreme Gradient Boosting, KNN, Random Forest, and Deep Neural Network.
+* Initially, all models demonstrated 70% accuracy, with Extreme Gradient Boosting being slightly better at 71%.
+* We performed a parameters search for  Extreme Gradient Boosting and tested the performance of a holdout set.
+* With the best parameters, accuracy improved to 72%.
+* Interpreting the best model parameters:
+  - `colsample_bytree = 0.8 `: 80% of the features (columns) are used for building each tree. Using a smaller subset of features improves the model’s performance and prevents overfiting.
+  - `learning_rate = 0.2`: a learning rate of 0.2 is moderate; it shows that the model is being updated at a reasonable pace
+  - `max_depth = 5`: the maximum depth of each tree is 5. The model isn't very deep, which helps in reducing complexity and overfitting.
+  - `n_estimators = 200`: the number of trees in the ensemble. The model has enough complexity to capture the relationships in the data, but not too many to overfit.
+  - `subsample = 0.8`: each tree is built using 80% of the data samples, which introduces randomness and helps prevent overfitting.
+  - `Accuracy 0.72` : The model performs reasonably well but may have room for improvement. The model captures most but not all of the patterns.
+* The most important feature was first crash type being rear-end. (As so it is in real life).
+* There's room for improvement with different sampling techniques (some causes are underrepresented).
 
 ## 11. Slides.
+
+[Slides](./Slides_Phase4.pdf)
