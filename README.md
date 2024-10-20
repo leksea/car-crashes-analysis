@@ -809,7 +809,7 @@ Our features are
 * In addition, we created a 4-layer deep neural network.
 #### Models performance.
 We used a test split to evaluate model performance. Since our dataset is imbalanced, we'll use weighted f1 as a metric whenever possible. We'll report both accuracy and f1 score.  
-![Traffic Crash Analysis](./Images/figure_66.png)
+![Traffic Crash Analysis](./Images/figure_67.png)
 
 | Model                   | Accuracy | F1 Score |
 |-------------------------|----------|----------|
