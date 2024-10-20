@@ -47,7 +47,7 @@ Build a model that can predict the primary contributory cause of a car accident,
 * [Traffic Ctashes: Vehicle](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Vehicles/68nd-jvt3/about_data).
 ### Requirements:
 * After downloading, all datasets need to be moved to **`Data/`** folder.
-* All three downloaded datasets contain the day of download in their name, i.e. `Traffic_Crashes_-_Crashes_20241004`. The loading code in the notebook will lookup all matches for all three datasets (i.e. names that look like `Traffic_Crashes_-_Crashes_*.csv`) and select the latest for loading. 
+* All three downloaded datasets contain the download day in their name, i.e. `Traffic_Crashes_-_Crashes_20241004`. The loading code in the notebook will lookup all matches for all three datasets (i.e. names that look like `Traffic_Crashes_-_Crashes_*.csv`) and select the latest for loading. 
 * The three datasets require 1.6 GB of disc space (as of October 2024).
 *  During the analysis, an additional dataset `df_crashes_analysis` will be created and saved in the folder (~800mb).  
 * Python libraries: 
@@ -779,7 +779,7 @@ Our goal is to first merge people with vehices on `vehicle_id`, then merge it wi
 -   The most popular car make among all age categories is Chevrolet (except for Male Adults, Toyota takes the win). Toyota is mostly 2nd most popular make, third is Nissan/Ford. Honda makes an appearance as a popular teenage car.
 
 #### Data transformation:
-We dropped all rows with where the crash was a single car and the car make is  `Unknown`. We dropped miscategorized driver age categories, like infant, toddler, etc..
+We dropped all rows with the single-car crash of the `Unknown` make. We dropped miscategorized driver age categories, like infant, toddler, etc..
 
 ## 7. Data Transformation For Classification
 -   We saved the  `df_crashes_analysis`  to the local data folder (~1500000 rows, 38 columns).
@@ -787,10 +787,10 @@ We dropped all rows with where the crash was a single car and the car make is  `
 -   We removed all large datasets from the memory, leaving the  `df_crashes_ml_top_20`.
 -   We further reduced the number of columns and filtered out additional crash causes, saving it as  `df_crashes_ml_small`  (619654 rows, 22 columns).
 
-The rationale behind these changes: computational demands won't allow us to use all features and all samples. We downsampled by filtering out of the  `prim_contributory_cause`  unknown and not applicable causes, weather-related, vehicle condition-related, driver condition-related, and road condition-related causes. From earlier EDA, for the most of the crashes, the majority of these features are either unknown or have no effect, i.e. driver's health condition is ok, weather is clear, road has no defects, vehicle is functioning. We then removed the columns containing information about these causes.
+The rationale behind these changes: computational demands won't allow us to use all features and all samples. We downsampled by filtering out of the  `prim_contributory_cause`  unknown and not applicable causes, weather-related, vehicle condition-related, driver condition-related, and road condition-related causes. From earlier EDA, for most of the crashes, the majority of these features are either unknown or have no effect, i.e. driver's health condition is ok, the weather is clear, the road has no defects, and the vehicle is functioning. We then removed the columns containing information about these causes.
 
 ## 8. Modelling.
-#### Selecting features, target variables.
+#### Selecting features, and target variables.
 Our target variable is `prim_contributory_cause`. 
 Our features are  
 `'vehicle_type', 'maneuver', 'first_contact_point', 'sex', 'age_category', 'driver_action',
@@ -801,56 +801,67 @@ Our features are
        'year'`.
 #### Holdout, Train, Test Split.
 * We reserved 15% of the original data (N = 92949) to be held out for evaluating the models' performance.
-* We used 30%(N = 158011) of the original data for train (70%) - test (30%).
+* We used 45%(N = 289690) of the original data for training (70%) and testing (30%).
 #### Pipelines.
 * We encoded target variable with `LabelEncoder()`.
 * We defined feature preproccesor, as OHE for categorical columns and standard scaler for numeric columns.
 * We created Random Forest, KNN, Gradient Boost pipelines.
 * In addition, we created a 4-layer deep neural network.
-#### Model performance.
-We used test split to evaluate model performance.
-* Model: KNN: Accuracy: 0.6262551683402244
-![Traffic Crash Analysis](./Images/figure_67.png)
-* Model: Random Forest Accuracy: 0.7083790397434816
-![Traffic Crash Analysis](./Images/figure_68.png)
-* Model: XGBoost Accuracy: 0.7166272888363852
-![Traffic Crash Analysis](./Images/figure_69.png)
+#### Models performance.
+We used a test split to evaluate model performance. Since our dataset is imbalanced, we'll use weighted f1 as a metric whenever possible. We'll report both accuracy and f1 score.  
+![Traffic Crash Analysis](./Images/figure_66.png)
+
+| Model                   | Accuracy | F1 Score |
+|-------------------------|----------|----------|
+| KNN                     | 0.63     | 0.61     |
+| Random Forest           | 0.71     | 0.68     |
+| XGBoost                 | 0.72     | 0.69     |
+| XGBoost Optimized       | 0.72     | 0.70     |
+
+
 ## 9. Results.
-We picked XGBoost model for optimization and ran parameter search.
+We picked XGBoost model for optimization and ran a parameter search.
 The best model's results on holdout set:
-Accuracy: 0.72
-![Traffic Crash Analysis](./Images/figure_70.png)
+Accuracy: 0.72, F1 score: 0.7.
+![Traffic Crash Analysis](./Images/figure_71.png)
 Feature analysis:
 
-| Feature | Importance | 
-|-------------------------------------------|--------------| 
-| 63 cat__first_crash_type_Rear End | 382.982635 | 
-| 38 cat__driver_action_Improper Manouver | 153.823105 | 
-| 56 cat__first_crash_type_Angle | 106.553223 | 
-| 35 cat__driver_action_Disregarding Controls/Signs | 103.140503 | 
-| 36 cat__driver_action_Distance | 84.111923 | 
-| 37 cat__driver_action_Distraction | 55.041073 | 
-| 23 cat__first_contact_point_Rear | 52.211895 | 
-| 44 cat__traffic_control_device_No Controls | 36.809013 | 
-| 68 cat__first_crash_type_Sideswipe Same | 36.703949 | 
-| 40 cat__driver_action_Other | 35.202759 |
+| Feature                                      | Importance   |
+|----------------------------------------------|--------------|
+| first_crash_type Rear End                    | 280.237396   |
+| driver_action Improper Manouver              | 89.850182    |
+| first_crash_type Angle                       | 73.313103    |
+| driver_action Distance                       | 62.447044    |
+| driver_action Disregarding Controls/Signs    | 56.923775    |
+| driver_action Distraction                    | 41.656368    |
+| first_contact_point Rear                     | 22.867151    |
+| first_crash_type Turning                     | 21.865906    |
+| first_crash_type Sideswipe Same              | 20.575909    |
+| driver_action Other                          | 17.656883    |
 
-Deep Neural Network model gave similar results on holdout set:
-Accuracy: 0.69
+Deep Neural Network model produced similar to XGB results on holdout set:
+Accuracy: 0.71, F1 Score 0.69.
 ![Traffic Crash Analysis](./Images/figure_72.png)
+
+### Interpreting DNN Model results.
+We looked into two possible ways of interpreting the DNN model's results: 
+* Weights, for `vehicle_type` can help understand the similarity/dissimilarity between vehicle types as perceived by model.
+*  Partial Dependencies for `prim_contributory cause`, visualizing the impact of features on a particular target (here is `Following Too Closely` vs `first_crash type`). 
+![Traffic Crash Analysis](./Images/figure_74.png)
 ## 10. Conclusion.
 * We have tested the following ML models: Extreme Gradient Boosting, KNN, Random Forest, and Deep Neural Network.
-* Initially, all models demonstrated 70% accuracy, with Extreme Gradient Boosting being slightly better at 71%.
+* Initially, all models demonstrated 70% accuracy, with Extreme Gradient Boosting slightly better at 71%.
 * We performed a parameters search for  Extreme Gradient Boosting and tested the performance of a holdout set.
 * With the best parameters, accuracy improved to 72%.
 * Interpreting the best model parameters:
   - `colsample_bytree = 0.8 `: 80% of the features (columns) are used for building each tree. Using a smaller subset of features improves the model’s performance and prevents overfiting.
-  - `learning_rate = 0.2`: a learning rate of 0.2 is moderate; it shows that the model is being updated at a reasonable pace
-  - `max_depth = 5`: the maximum depth of each tree is 5. The model isn't very deep, which helps in reducing complexity and overfitting.
+  - `learning_rate = 0.2`: a learning rate of 0.1 is moderate; it shows that the model is being updated at a reasonable pace
+  - `max_depth = 10`: the maximum depth of each tree is 10. The model isn't very deep, which helps in reducing complexity and overfitting.
   - `n_estimators = 200`: the number of trees in the ensemble. The model has enough complexity to capture the relationships in the data, but not too many to overfit.
-  - `subsample = 0.8`: each tree is built using 80% of the data samples, which introduces randomness and helps prevent overfitting.
-  - `Accuracy 0.72` : The model performs reasonably well but may have room for improvement. The model captures most but not all of the patterns.
-* The most important feature was first crash type being rear-end. (As so it is in real life).
+  - `subsample = 0.8`: each tree is built with 80% of the data samples, which introduces randomness and helps prevent overfitting.
+  - `Accuracy 0.72`: the model performs reasonably well but may have room for improvement. The model captures most but not all of the patterns.
+  - `F1 Score 0.7`: the model achieved a reasonable performance between precision and recall, handling the imbalances well.
+* The most important feature was the first crash type being rear-end (as it is in real life), and overall the `first_crash_type` plays the most role when predicting the primary crash cause.
 * There's room for improvement with different sampling techniques (some causes are underrepresented).
 
 ## 11. Slides.
