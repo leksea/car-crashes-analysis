@@ -842,6 +842,14 @@ Deep Neural Network model produced similar to XGB results on holdout set:
 Accuracy: 0.71, F1 Score 0.69.
 ![Traffic Crash Analysis](./Images/figure_72.png)
 
+
+### Interpreting DNN Model results.
+We looked into two possible ways of interpreting the DNN model's results: 
+* Weights, for `vehicle_type` can help understand the similarity/dissimilarity between vehicle types as perceived by model.
+*  Partial Dependencies for `prim_contributory cause`, visualizing the impact of features on a particular target (here is `Following Too Closely` vs `first_crash type`). 
+![Traffic Crash Analysis](./Images/figure_74.png)
+## 10. Conclusion.
+
 ### Recommendations
 * Target Rear-End collisions.
 Focus on campaigns that promote safe following distances, especially in high-traffic areas.
@@ -850,12 +858,7 @@ Educate drivers about common improper maneuvers, such as unsafe lane changes, ab
 * Mitigate Distracted Driving.
 Stress the dangers of phone use and other driving distractions.
 
-### Interpreting DNN Model results.
-We looked into two possible ways of interpreting the DNN model's results: 
-* Weights, for `vehicle_type` can help understand the similarity/dissimilarity between vehicle types as perceived by model.
-*  Partial Dependencies for `prim_contributory cause`, visualizing the impact of features on a particular target (here is `Following Too Closely` vs `first_crash type`). 
-![Traffic Crash Analysis](./Images/figure_74.png)
-## 10. Conclusion.
+### Recap of modeling.
 * We have tested the following ML models: Extreme Gradient Boosting, KNN, Random Forest, and Deep Neural Network.
 * Initially, all models demonstrated 70% accuracy, with Extreme Gradient Boosting slightly better at 71%.
 * We performed a parameters search for  Extreme Gradient Boosting and tested the performance of a holdout set.
