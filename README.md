@@ -36,10 +36,9 @@
 -   **`README.md`**: The README file containing an overview of the project, instructions for setup, and other important information.
 -   **`Slides_ChiCrashes.pdf`**: A PDF file containing presentation slides summarizing the analysis, findings, and conclusions of the project.
 ## 2. Business Problem Overview.
-Build a model that can predict the primary contributory cause of a car accident, given information about the car, the people in the car, the road conditions etc. You might imagine your audience as a Vehicle Safety Board who's interested in reducing traffic accidents, or as the City of Chicago who's interested in becoming aware of any interesting patterns.
+The stakeholder is the City of Chicago, the objective is to develop a data-driven Driver Awareness Campaign to reduce accidents in business and residential areas
 ## 3. Proposed Solution.
-...
-
+Use the publicly available Chicago Car Crashes dataset to develop a model predicting car crash causes. Use ML tools to analyze model's most predictive features.
 ## 4. Datasets Download Links and Notebook Requirements.
 ### Download links:
 * [Traffic Crashes: Crashes](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if/about_data).
@@ -820,7 +819,7 @@ We used a test split to evaluate model performance. Since our dataset is imbalan
 
 
 ## 9. Results.
-We picked XGBoost model for optimization and ran a parameter search.
+We picked the XGBoost model for optimization and ran a parameter search.
 The best model's results on holdout set:
 Accuracy: 0.72, F1 score: 0.7.
 ![Traffic Crash Analysis](./Images/figure_71.png)
@@ -842,6 +841,14 @@ Feature analysis:
 Deep Neural Network model produced similar to XGB results on holdout set:
 Accuracy: 0.71, F1 Score 0.69.
 ![Traffic Crash Analysis](./Images/figure_72.png)
+
+### Recommendations
+* Target Rear-End collisions.
+Focus on campaigns that promote safe following distances, especially in high-traffic areas.
+* Address Improper Maneuvers.
+Educate drivers about common improper maneuvers, such as unsafe lane changes, abrupt stops, and risky turns.
+* Mitigate Distracted Driving.
+Stress the dangers of phone use and other driving distractions.
 
 ### Interpreting DNN Model results.
 We looked into two possible ways of interpreting the DNN model's results: 
